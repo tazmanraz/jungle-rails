@@ -8,6 +8,33 @@
     <h4>Thank you for your order!</h4>
   </div>
 
+    <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th colspan="2">Product</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @order.line_items.each { |line_item| %>
+      <%= render 'order_line', product: line_item.product, quantity: line_item[:quantity].to_i %>
+    <% } %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4">
+          TOTAL:
+        </th>
+        <th>
+          <%= humanized_money_with_symbol @order.total%>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+  
+
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
 </section>
